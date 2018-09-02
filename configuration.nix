@@ -43,7 +43,7 @@ in
     logPerVirtualHost = true;
     adminAddr="drever@lrz.uni-muenchen.de";
     extraModules = [
-      { name = "php5"; path = "${pkgs.php56}/modules/libphp5.so"; }
+      { name = "php7"; path = "${pkgs.php72}/modules/libphp7.so"; }
     ];
 
     virtualHosts = [
