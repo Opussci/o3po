@@ -34,7 +34,7 @@ relevanssiPlugin = pkgs.stdenv.mkDerivation {
 
 o3poPlugin = pkgs.stdenv.mkDerivation {
   name = "relevanssi-plugin";
-  src = ./o3po/.;
+  src = ../o3po/.;
   installPhase = "mkdir -p $out; cp -R * $out/";
 };
 
