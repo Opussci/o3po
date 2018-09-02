@@ -2,31 +2,39 @@
 
 let
 
-# For shits and giggles, let's package the responsive theme
-responsiveTheme = pkgs.stdenv.mkDerivation {
-  name = "responsive-theme";
-  # Download the theme from the wordpress site
+onepressTheme = pkgs.stdenv.mkDerivation {
+  name = "onepress-theme";
   src = pkgs.fetchurl {
-    url = http://wordpress.org/themes/download/responsive.1.9.7.6.zip;
-    sha256 = "1g1mjvjbx7a0w8g69xbahi09y2z8wfk1pzy1wrdrdnjlynyfgzq8";
+    url = https://downloads.wordpress.org/theme/onepress.2.0.9.zip;
+    sha256 = "1hdc6ryz6w10i48mww8cgn5qkqlbgw83qlpy0ndhdal3pfna2bc8";
   };
-  # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
   installPhase = "mkdir -p $out; cp -R * $out/";
 };
 
-# Wordpress plugin 'akismet' installation example
 akismetPlugin = pkgs.stdenv.mkDerivation {
   name = "akismet-plugin";
-  # Download the theme from the wordpress site
   src = pkgs.fetchurl {
     url = https://downloads.wordpress.org/plugin/akismet.3.1.zip;
     sha256 = "1wjq2125syrhxhb0zbak8rv7sy7l8m60c13rfjyjbyjwiasalgzf";
   };
-  # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
+  installPhase = "mkdir -p $out; cp -R * $out/";
+};
+
+relevanssiPlugin = pkgs.stdenv.mkDerivation {
+  name = "relevanssi-plugin";
+  src = pkgs.fetchurl {
+    url = https://downloads.wordpress.org/plugin/relevanssi.4.0.11.zip;
+    sha256 = "0myz0p1sk3cyki19li0qk7jczyz0cg43b8921hkgccg6l88hi2l5";
+  };
+  buildInputs = [ pkgs.unzip ];
+  installPhase = "mkdir -p $out; cp -R * $out/";
+};
+
+o3poPlugin = pkgs.stdenv.mkDerivation {
+  name = "relevanssi-plugin";
+  src = ./o3po/.;
   installPhase = "mkdir -p $out; cp -R * $out/";
 };
 
@@ -57,8 +65,8 @@ in
             serviceType = "wordpress";
             dbPassword = "wordpress";
             wordpressUploads = "/data/uploads";
-            themes = [ responsiveTheme ];
-            plugins = [ akismetPlugin ];
+            themes = [ onepressTheme ];
+            plugins = [ akismetPlugin relevanssiPlugin o3poPlugin ];
           }
         ];
       }
